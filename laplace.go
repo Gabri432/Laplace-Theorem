@@ -10,7 +10,7 @@ func main() {
 //
 // The result will be rounded allowing 2 decimal places at maximum
 func Det(a, b, c, d float64) float64 {
-	return RoundFloat(a*c-b*d, 100)
+	return RoundFloat(a*d-b*c, 100)
 }
 
 // roundFloat will round f according to the precision.
@@ -35,7 +35,7 @@ func (m Matrix) IsSquareMatrix() bool {
 //
 // It returns a map, each key is an element of the first row of the matrix, each value is the relative row and column.
 //
-// start from 1, NOT 0.
+// The first row or column will be 1, NOT 0.
 func (m Matrix) MapElements() map[float64]Position {
 	positions := make(map[float64]Position)
 	for columnValue := 0; columnValue < len(m.Rows); columnValue++ {
@@ -105,3 +105,7 @@ func (m Matrix) LaplaceDet() float64 {
 	}
 	return result
 }
+
+// n3 => 3*n2
+// n4 => 4*n3 => 12*n2
+// n5 => 5*n4 => 20*n3 => 60*n2
