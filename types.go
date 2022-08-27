@@ -1,7 +1,7 @@
 package main
 
 type MatRow struct {
-	Row []float64
+	Columns []float64
 }
 
 type Matrix struct {
