@@ -6,7 +6,7 @@ func main() {
 	return
 }
 
-// det will calculate the determinant of a 2*2 matrix.
+// det will calculate the determinant of a matrix-2x2.
 //
 // The result will be rounded allowing 2 decimal places at maximum
 func Det(a, b, c, d float64) float64 {
@@ -31,24 +31,22 @@ func (m Matrix) IsSquareMatrix() bool {
 	return true
 }
 
-// It maps the position of each element of the matrix.
+// It maps the position of each element of the first row of the matrix.
 //
-// It returns a map, each key is an element of the Matrix, each value is the relative row and column.
+// It returns a map, each key is an element of the first row of the matrix, each value is the relative row and column.
 //
-// Each row and column start from 1, NOT 0.
+// start from 1, NOT 0.
 func (m Matrix) MapElements() map[float64]Position {
 	positions := make(map[float64]Position)
-	for rowValue := 0; rowValue < len(m.Rows); rowValue++ {
-		for columnValue := 0; columnValue < len((m.Rows)); columnValue++ {
-			positions[m.Rows[rowValue].Columns[columnValue]] = Position{Row: rowValue + 1, Column: columnValue + 1}
-		}
+	for columnValue := 0; columnValue < len(m.Rows); columnValue++ {
+		positions[m.Rows[0].Columns[columnValue]] = Position{Row: 1, Column: columnValue + 1}
 	}
 	return positions
 }
 
 // CreateSubMatrix will generate a sub matrix according to the row and column to exclude.
 //
-// If row=1 and column=1 it means that the subMatrix will exclude (not contain) the first row and first column of the mother matrix.
+// If row=1 and column=1 it means that the subMatrix will exclude (not contain) elements from the first row and first column of the mother matrix.
 func (m Matrix) CreateSubMatrix(row, column int) Matrix {
 	subMatrix := Matrix{}
 	for currentRow := 0; currentRow < len(m.Rows); currentRow++ {
@@ -67,18 +65,43 @@ func (m Matrix) CreateSubMatrix(row, column int) Matrix {
 	return subMatrix
 }
 
-// SubMatrixes will generate all the sub matrixes available.
+// SubMatrixes will generate all the sub matrixes that don't contains elements from the first row.
 //
 // Each sub-matrix is just another matrix with rows and columns 1 unit shorter than the mother matrix.
 // If there is a matrix 3x3, each sub-matrix will be 2x2.
+// If there is a matrix 4x4, each sub-matrix will be 3x3.
+//
+// Examples:
+//
+// a Matrix3x3: [1 2 3; 3 7 9; 1 2 1] => [3 7;1 2],[7 9;2 1]
 func (m Matrix) SubMatrixes() []Matrix {
 	subMatrixes := []Matrix{}
-	for rowValue := 0; rowValue < len(m.Rows); rowValue++ {
-		for columnValue := 0; columnValue < len((m.Rows)); columnValue++ {
-			subMatrixes = append(subMatrixes, m.CreateSubMatrix(rowValue, columnValue))
-		}
+	for columnValue := 0; columnValue < len(m.Rows); columnValue++ {
+		subMatrixes = append(subMatrixes, m.CreateSubMatrix(1, columnValue))
 	}
 	return subMatrixes
 }
 
-func (m Matrix) LaplaceDet() {}
+// LaplaceDet will calculate the matrix-3x3 determinant by using the Laplace Theorem.
+func (m Matrix) LaplaceDet3x3() float64 {
+	var result float64
+	for elem, pos := range m.MapElements() {
+		pow := float64(pos.Column + pos.Row)
+		subMatrix := m.CreateSubMatrix(pos.Row, pos.Column)
+		a, b := subMatrix.Rows[0].Columns[0], subMatrix.Rows[0].Columns[1]
+		c, d := subMatrix.Rows[1].Columns[0], subMatrix.Rows[1].Columns[1]
+		result += math.Pow(-1, pow) * float64(elem) * Det(a, b, c, d)
+	}
+	return result
+}
+
+// LaplaceDet will calculate the matrix-4x4 determinant by using the Laplace Theorem.
+func (m Matrix) LaplaceDet() float64 {
+	var result float64
+	if len(m.Rows[0].Columns) > 2 {
+		for _, subM := range m.SubMatrixes() {
+			result += subM.LaplaceDet3x3()
+		}
+	}
+	return result
+}
