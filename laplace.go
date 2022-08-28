@@ -33,7 +33,7 @@ func (m Matrix) IsSquareMatrix() bool {
 
 // It maps the position of each element of the first row of the matrix.
 //
-// It returns a map, each key is an element of the first row of the matrix, each value is the relative row and column.
+// It returns a map, each key is the relative row and column, each value is an element of the first row of the matrix.
 //
 // The first row or column will be 1, NOT 0.
 func (m Matrix) MapElements() map[Position]float64 {
@@ -69,7 +69,7 @@ func (m Matrix) CreateSubMatrix(row, column int) Matrix {
 // If there is a matrix 3x3, each sub-matrix will be 2x2.
 // If there is a matrix 4x4, each sub-matrix will be 3x3.
 //
-// Examples:
+// Example:
 //
 // a Matrix3x3: [1 2 3; 3 7 9; 1 2 1] => [3 7;1 2],[7 9;2 1]
 func (m Matrix) SubMatrices() []Matrix {
