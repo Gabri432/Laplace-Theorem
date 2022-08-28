@@ -3,7 +3,7 @@ Un semplice programma scritto in GO che permetterà di calcolare il determinante
 Per maggiori dettagli `https://en.wikipedia.org/wiki/Laplace_expansion`.
 
 ## Funzionalità
-- It will calculate square matrices of any size.
+- Calcolerà il determinante di matrici di qualunque dimensione.
 
 ## Struttura del Progetto
 - `Laplace Theorem` (cartella principale), dove sono presenti i seguenti file:
