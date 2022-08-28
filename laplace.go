@@ -15,7 +15,7 @@ func main() {
 		fmt.Println("This isn't a square matrix.\n Retry.")
 		return
 	} else {
-		fmt.Println(validateMatrixType(mat))
+		fmt.Println("Result: ", validateMatrixType(mat))
 	}
 }
 
@@ -23,7 +23,7 @@ func getUserInput() Matrix {
 	scanner := bufio.NewScanner(os.Stdin)
 	newMatrix := Matrix{}
 	fmt.Println("Insert Input:\n 1) each line creates a row of the Matrix.")
-	fmt.Println("2) each number of the line must be separated by a semicolon;\n 3) once you have finished write END to start running the program.")
+	fmt.Println(" 2) each number of the line must be separated by a semicolon;\n 3) once you have finished write END to start running the program.")
 	fmt.Println("Example: \n 3;2\n 1;5\n END")
 	for scanner.Scan() {
 		if scanner.Text() == "END" {
@@ -31,7 +31,6 @@ func getUserInput() Matrix {
 		}
 		newMatrix.Rows = append(newMatrix.Rows, generateMatRow(scanner.Text()))
 	}
-	fmt.Println(newMatrix)
 	return newMatrix
 }
 
