@@ -5,11 +5,15 @@ import (
 )
 
 var (
-	r1  = MatRow{Columns: []float64{1, 2, 3, 8}}
-	r2  = MatRow{Columns: []float64{7, 5, 3, 4}}
-	r3  = MatRow{Columns: []float64{9, 2, 6, 1}}
-	r4  = MatRow{Columns: []float64{3, 4, 9, 5}}
-	mat = Matrix{[]MatRow{r1, r2, r3, r4}}
+	r1     = MatRow{Columns: []float64{1, 2, 3, 8}}
+	r2     = MatRow{Columns: []float64{7, 5, 3, 4}}
+	r3     = MatRow{Columns: []float64{9, 2, 6, 1}}
+	r4     = MatRow{Columns: []float64{3, 4, 9, 5}}
+	mat4x4 = Matrix{[]MatRow{r1, r2, r3, r4}}
+	row1   = MatRow{Columns: []float64{1, 2, 3}}
+	row2   = MatRow{Columns: []float64{4, 5, 6}}
+	row3   = MatRow{Columns: []float64{7, 8, 9}}
+	mat3x3 = Matrix{[]MatRow{row1, row2, row3}}
 )
 
 func TestDet(t *testing.T) {
@@ -37,14 +41,14 @@ func TestIsSquareMatrix(t *testing.T) {
 }
 
 func TestMapElements(t *testing.T) {
-	mappedValues := mat.MapElements()
+	mappedValues := mat4x4.MapElements()
 	if mappedValues[1].Row != 1 {
 		t.Fatalf("Expected 1, got %d.", mappedValues[1].Row)
 	}
 }
 
-func TestCreateSubMatrix(t *testing.T) {
-	subMatrix := mat.CreateSubMatrix(1, 1)
+func TestCreateSubMatrix3x3(t *testing.T) {
+	subMatrix := mat4x4.CreateSubMatrix(1, 1)
 	if len(subMatrix.Rows) != 3 {
 		t.Fatalf("Expected amount of rows to be 3, got %d", len(subMatrix.Rows))
 	}
@@ -56,8 +60,21 @@ func TestCreateSubMatrix(t *testing.T) {
 	}
 }
 
+func TestCreateSubMatrix2x2(t *testing.T) {
+	subMatrix := mat3x3.CreateSubMatrix(1, 1)
+	if len(subMatrix.Rows) != 2 {
+		t.Fatalf("Expected amount of rows to be 2, got %d", len(subMatrix.Rows))
+	}
+	if len(subMatrix.Rows[0].Columns) != 2 {
+		t.Fatalf("Expected amount of columns to be 2, got %d.", len(subMatrix.Rows[0].Columns))
+	}
+	if subMatrix.Rows[0].Columns[0] != 5 {
+		t.Fatalf("Expected element on first row and first column to be 5, got %f.", subMatrix.Rows[0].Columns[0])
+	}
+}
+
 func TestSubMatrixes(t *testing.T) {
-	subMats := mat.SubMatrixes()
+	subMats := mat4x4.SubMatrixes()
 	if len(subMats) != 4 {
 		t.Fatalf("Expected to have 4 sub-matrixes, got %d.", len(subMats))
 	}
@@ -79,5 +96,9 @@ func TestLaplaceDet3x3(t *testing.T) {
 	if result != expectedResult {
 		t.Fatalf("Expected result to %f, got %f.", expectedResult, result)
 	}
+
+}
+
+func TestLaplace(t *testing.T) {
 
 }
