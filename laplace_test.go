@@ -164,25 +164,15 @@ func TestLaplace4x4(t *testing.T) {
 	}
 }
 
-func TestReducer(t *testing.T) {
-	matrices4x4 := Reducer(mat6x6.SubMatrices())
-	if len(matrices4x4[0].Rows) > 4 {
-		t.Fatalf("Expected matrices to have 4 rows at maximum, got %d.", len(matrices4x4[0].Rows))
-	}
-	if len(matrices4x4) != 30 {
-		t.Fatalf("Expected to be generated 30 matrices4x4, got %d", len(matrices4x4))
-	}
-}
-
-func TestLaplaceBig5x5(t *testing.T) {
-	result := mat5x5.LaplaceBig()
+func TestReducer5x5(t *testing.T) {
+	result := LaplaceBig(mat5x5)
 	if result != 1 {
 		t.Fatalf("Expected det(I-5x5) to be 1, got %f.\n", result)
 	}
 }
 
-func TestLaplaceBig6x6(t *testing.T) {
-	result := mat6x6.LaplaceBig()
+func TestReducer6x6(t *testing.T) {
+	result := LaplaceBig(mat6x6)
 	if result != 1 {
 		t.Fatalf("Expected det(I-6x6) to be 1, got %f.\n", result)
 	}
