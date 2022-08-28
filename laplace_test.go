@@ -16,6 +16,25 @@ var (
 	mat3x3 = Matrix{[]MatRow{row1, row2, row3}}
 )
 
+var (
+	matRow5x1 = MatRow{Columns: []float64{1, 0, 0, 0, 0}}
+	matRow5x2 = MatRow{Columns: []float64{0, 1, 0, 0, 0}}
+	matRow5x3 = MatRow{Columns: []float64{0, 0, 1, 0, 0}}
+	matRow5x4 = MatRow{Columns: []float64{0, 0, 0, 1, 0}}
+	matRow5x5 = MatRow{Columns: []float64{0, 0, 0, 0, 1}}
+	mat5x5    = Matrix{[]MatRow{matRow5x1, matRow5x2, matRow5x3, matRow5x4, matRow5x5}}
+)
+
+var (
+	matRow6x1 = MatRow{Columns: []float64{1, 0, 0, 0, 0, 0}}
+	matRow6x2 = MatRow{Columns: []float64{0, 1, 0, 0, 0, 0}}
+	matRow6x3 = MatRow{Columns: []float64{0, 0, 1, 0, 0, 0}}
+	matRow6x4 = MatRow{Columns: []float64{0, 0, 0, 1, 0, 0}}
+	matRow6x5 = MatRow{Columns: []float64{0, 0, 0, 0, 1, 0}}
+	matRow6x6 = MatRow{Columns: []float64{0, 0, 0, 0, 0, 1}}
+	mat6x6    = Matrix{[]MatRow{matRow6x1, matRow6x2, matRow6x3, matRow6x4, matRow6x5, matRow6x6}}
+)
+
 func TestDet(t *testing.T) {
 	determinant := Det(1, 2, 3, 6)
 	if determinant != 0 {
@@ -116,5 +135,29 @@ func TestLaplace4x4(t *testing.T) {
 	result := mat4x4.LaplaceDet()
 	if result != 63 {
 		t.Fatalf("Expected result to be 63, got %f.", result)
+	}
+}
+
+func TestReducer(t *testing.T) {
+	matrices4x4 := Reducer(mat6x6.SubMatrices())
+	if len(matrices4x4[0].Rows) > 4 {
+		t.Fatalf("Expected matrices to have 4 rows at maximum, got %d.", len(matrices4x4[0].Rows))
+	}
+	if len(matrices4x4) != 30 {
+		t.Fatalf("Expected to be generated 30 matrices4x4, got %d", len(matrices4x4))
+	}
+}
+
+func TestLaplaceBig5x5(t *testing.T) {
+	result := mat5x5.LaplaceBig()
+	if result != 1 {
+		t.Fatalf("Expected det(I-5x5) to be 1, got %f.\n", result)
+	}
+}
+
+func TestLaplaceBig6x6(t *testing.T) {
+	result := mat6x6.LaplaceBig()
+	if result != 1 {
+		t.Fatalf("Expected det(I-6x6) to be 1, got %f.\n", result)
 	}
 }

@@ -96,7 +96,7 @@ func (m Matrix) LaplaceDet3x3() float64 {
 // LaplaceDet will calculate the matrix-4x4 determinant by using the Laplace Theorem.
 func (m Matrix) LaplaceDet() float64 {
 	subMatrices := []Matrix{}
-	if len(m.Rows[0].Columns) > 2 {
+	if len(m.Rows[0].Columns) > 3 {
 		for _, subM := range m.SubMatrices() {
 			subMatrices = append(subMatrices, subM)
 		}
@@ -105,6 +105,32 @@ func (m Matrix) LaplaceDet() float64 {
 	for pos, elem := range m.MapElements() {
 		power := float64(pos.Row + pos.Column)
 		result += math.Pow(-1, power) * elem * subMatrices[pos.Column-1].LaplaceDet3x3()
+	}
+	return result
+}
+
+// Reducer generates sub-matrices4x4 from bigger matrices.
+func Reducer(matrices []Matrix) []Matrix {
+	if len(matrices[0].Rows) > 4 {
+		newSubMatrices := []Matrix{}
+		for _, subM := range matrices {
+			newSubMatrices = append(newSubMatrices, subM.SubMatrices()...)
+		}
+		return Reducer(newSubMatrices)
+	}
+	return matrices
+}
+
+// LaplageBig will calculate determinants for matrix-5x5 by using the Laplace Theorem.
+//
+// ATTENTION: It currently does not work properly for bigger matrices (matrix-6x6 or more).
+//
+// Check 'TestLaplaceBig6x6' function to see the problem better.
+func (m Matrix) LaplaceBig() float64 {
+	matrices4x4 := Reducer(m.SubMatrices())
+	result := 0.0
+	for _, mat := range matrices4x4 {
+		result += mat.LaplaceDet()
 	}
 	return result
 }
