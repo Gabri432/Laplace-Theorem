@@ -19,5 +19,5 @@ git clone https://github.com/Gabri432/Laplace-Theorem.git
 ```
 ### Run the tests
 ```
-go test
+go test [-v] [-run TestFunctionName]
 ```
