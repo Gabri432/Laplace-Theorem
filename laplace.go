@@ -1,9 +1,65 @@
 package main
 
-import "math"
+import (
+	"bufio"
+	"fmt"
+	"math"
+	"os"
+	"strconv"
+	"strings"
+)
 
 func main() {
-	return
+	if !(getUserInput()).IsSquareMatrix() {
+		fmt.Println("This isn't a square matrix.\n Retry.")
+		main()
+	} else {
+		validateMatrixType(getUserInput())
+	}
+}
+
+func getUserInput() Matrix {
+	scanner := bufio.NewScanner(os.Stdin)
+	newMatrix := Matrix{}
+	for scanner.Scan() {
+		if scanner.Text() == "END" {
+			break
+		}
+		newMatrix.Rows = append(newMatrix.Rows, generateMatRow(scanner.Text()))
+	}
+	return newMatrix
+}
+
+func generateMatRow(s string) MatRow {
+	newMatRow := MatRow{}
+	values := strings.Split(s, ";")
+	for _, v := range values {
+		column, err := strconv.ParseFloat(v, 64)
+		if err != nil {
+			fmt.Println(err.Error())
+			break
+		}
+		newMatRow.Columns = append(newMatRow.Columns, column)
+	}
+	return newMatRow
+}
+
+func validateMatrixType(m Matrix) float64 {
+	switch len(m.Rows) {
+	case 1:
+		return 1
+	case 2:
+		return Det(m.Rows[0].Columns[0], m.Rows[0].Columns[1], m.Rows[1].Columns[0], m.Rows[1].Columns[1])
+	case 3:
+		return m.LaplaceDet3x3()
+	case 4:
+		return m.LaplaceDet()
+	case 5:
+		return m.LaplaceBig()
+	default:
+		fmt.Println("Warning: the program is not tested properly for matrices of such size.")
+		return m.LaplaceBig()
+	}
 }
 
 // det will calculate the determinant of a matrix-2x2.
