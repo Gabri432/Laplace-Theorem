@@ -32,7 +32,7 @@ go test [-v] [-run TestFunctionName]
 \...\laplace-theorem> go run .
 Insert Input:  <<< It will appear a description about how to use the code.
  1) each line creates a row of the Matrix.
-2) each number of the line must be separated by a semicolon;      
+ 2) each number of the line must be separated by a semicolon;      
  3) once you have finished write END to start running the program.
 Example:
  3;2
