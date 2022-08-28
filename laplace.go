@@ -10,23 +10,28 @@ import (
 )
 
 func main() {
-	if !(getUserInput()).IsSquareMatrix() {
+	mat := getUserInput()
+	if !(mat).IsSquareMatrix() {
 		fmt.Println("This isn't a square matrix.\n Retry.")
-		main()
+		return
 	} else {
-		validateMatrixType(getUserInput())
+		fmt.Println(validateMatrixType(mat))
 	}
 }
 
 func getUserInput() Matrix {
 	scanner := bufio.NewScanner(os.Stdin)
 	newMatrix := Matrix{}
+	fmt.Println("Insert Input:\n 1) each line creates a row of the Matrix.")
+	fmt.Println("2) each number of the line must be separated by a semicolon;\n 3) once you have finished write END to start running the program.")
+	fmt.Println("Example: \n 3;2\n 1;5\n END")
 	for scanner.Scan() {
 		if scanner.Text() == "END" {
 			break
 		}
 		newMatrix.Rows = append(newMatrix.Rows, generateMatRow(scanner.Text()))
 	}
+	fmt.Println(newMatrix)
 	return newMatrix
 }
 
@@ -47,7 +52,7 @@ func generateMatRow(s string) MatRow {
 func validateMatrixType(m Matrix) float64 {
 	switch len(m.Rows) {
 	case 1:
-		return 1
+		return m.Rows[0].Columns[0]
 	case 2:
 		return Det(m.Rows[0].Columns[0], m.Rows[0].Columns[1], m.Rows[1].Columns[0], m.Rows[1].Columns[1])
 	case 3:
