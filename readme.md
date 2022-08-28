@@ -3,7 +3,7 @@ A simple program in go that will be able to calculate the matrix determinant by 
 You can check the details on `https://en.wikipedia.org/wiki/Laplace_expansion`.
 
 ## Features
-- It will calculate square matrices from 2 to 4 rows of size.
+- It will calculate square matrices of any size.
 
 ## Project Structure
 - `Laplace Theorem` (main folder), where the following files are located:
