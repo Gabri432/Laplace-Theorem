@@ -46,7 +46,7 @@ func TestMapElements(t *testing.T) {
 func TestCreateSubMatrix(t *testing.T) {
 	subMatrix := mat.CreateSubMatrix(1, 1)
 	if len(subMatrix.Rows) != 3 {
-		t.Fatalf("Expected amount of rows to be 2, got %d", len(subMatrix.Rows))
+		t.Fatalf("Expected amount of rows to be 3, got %d", len(subMatrix.Rows))
 	}
 	if len(subMatrix.Rows[0].Columns) != 3 {
 		t.Fatalf("Expected amount of columns to be 3, got %d.", len(subMatrix.Rows[0].Columns))
@@ -62,9 +62,22 @@ func TestSubMatrixes(t *testing.T) {
 		t.Fatalf("Expected to have 4 sub-matrixes, got %d.", len(subMats))
 	}
 	if len(subMats[0].Rows) != len(subMats[0].Rows[0].Columns) {
-		t.Fatal("Expected number of rows to be equal to the amount of columns, got not equal.")
+		t.Fatal("Expected number of rows to be equal to the amount of columns, got not equal.", subMats)
 	}
 	if len(subMats[0].Rows) != 3 {
 		t.Fatalf("Expected rows to be 3, got %d.", len(subMats[0].Rows))
 	}
+}
+
+func TestLaplaceDet3x3(t *testing.T) {
+	r1 := MatRow{Columns: []float64{0, 0, 3}}
+	r2 := MatRow{Columns: []float64{2, 3, 1}}
+	r3 := MatRow{Columns: []float64{2, 1, 0}}
+	m := Matrix{[]MatRow{r1, r2, r3}}
+	result := m.LaplaceDet3x3()
+	expectedResult := 3 * Det(2, 3, 2, 1)
+	if result != expectedResult {
+		t.Fatalf("Expected result to %f, got %f.", expectedResult, result)
+	}
+
 }

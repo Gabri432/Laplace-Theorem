@@ -54,11 +54,9 @@ func (m Matrix) CreateSubMatrix(row, column int) Matrix {
 			continue
 		}
 		line := MatRow{}
-		for currentColumn := 0; currentColumn < len(m.Rows); currentColumn++ {
-			if currentColumn+1 == row {
-				continue
-			}
-			line.Columns = append(line.Columns, m.Rows[currentRow].Columns[currentColumn])
+		line.Columns = append(line.Columns, m.Rows[currentRow].Columns[:column-1]...)
+		if column < len(m.Rows[0].Columns) {
+			line.Columns = append(line.Columns, m.Rows[currentRow].Columns[column:]...)
 		}
 		subMatrix.Rows = append(subMatrix.Rows, line)
 	}
@@ -76,7 +74,7 @@ func (m Matrix) CreateSubMatrix(row, column int) Matrix {
 // a Matrix3x3: [1 2 3; 3 7 9; 1 2 1] => [3 7;1 2],[7 9;2 1]
 func (m Matrix) SubMatrixes() []Matrix {
 	subMatrixes := []Matrix{}
-	for columnValue := 0; columnValue < len(m.Rows); columnValue++ {
+	for columnValue := 1; columnValue <= len(m.Rows); columnValue++ {
 		subMatrixes = append(subMatrixes, m.CreateSubMatrix(1, columnValue))
 	}
 	return subMatrixes
