@@ -36,10 +36,10 @@ func (m Matrix) IsSquareMatrix() bool {
 // It returns a map, each key is an element of the first row of the matrix, each value is the relative row and column.
 //
 // The first row or column will be 1, NOT 0.
-func (m Matrix) MapElements() map[float64]Position {
-	positions := make(map[float64]Position)
+func (m Matrix) MapElements() map[Position]float64 {
+	positions := make(map[Position]float64)
 	for columnValue := 0; columnValue < len(m.Rows); columnValue++ {
-		positions[m.Rows[0].Columns[columnValue]] = Position{Row: 1, Column: columnValue + 1}
+		positions[Position{Row: 1, Column: columnValue + 1}] = m.Rows[0].Columns[columnValue]
 	}
 	return positions
 }
@@ -83,7 +83,7 @@ func (m Matrix) SubMatrixes() []Matrix {
 // LaplaceDet will calculate the matrix-3x3 determinant by using the Laplace Theorem.
 func (m Matrix) LaplaceDet3x3() float64 {
 	var result float64
-	for elem, pos := range m.MapElements() {
+	for pos, elem := range m.MapElements() {
 		pow := float64(pos.Column + pos.Row)
 		subMatrix := m.CreateSubMatrix(pos.Row, pos.Column)
 		a, b := subMatrix.Rows[0].Columns[0], subMatrix.Rows[0].Columns[1]
@@ -95,11 +95,16 @@ func (m Matrix) LaplaceDet3x3() float64 {
 
 // LaplaceDet will calculate the matrix-4x4 determinant by using the Laplace Theorem.
 func (m Matrix) LaplaceDet() float64 {
-	var result float64
+	subMatrices := []Matrix{}
 	if len(m.Rows[0].Columns) > 2 {
 		for _, subM := range m.SubMatrixes() {
-			result += subM.LaplaceDet3x3()
+			subMatrices = append(subMatrices, subM)
 		}
+	}
+	result := 0.0
+	for pos, elem := range m.MapElements() {
+		power := float64(pos.Row + pos.Column)
+		result += math.Pow(-1, power) * elem * subMatrices[pos.Column-1].LaplaceDet3x3()
 	}
 	return result
 }

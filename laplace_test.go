@@ -5,7 +5,7 @@ import (
 )
 
 var (
-	r1     = MatRow{Columns: []float64{1, 2, 3, 8}}
+	r1     = MatRow{Columns: []float64{1, 0, 0, 0}}
 	r2     = MatRow{Columns: []float64{7, 5, 3, 4}}
 	r3     = MatRow{Columns: []float64{9, 2, 6, 1}}
 	r4     = MatRow{Columns: []float64{3, 4, 9, 5}}
@@ -42,8 +42,8 @@ func TestIsSquareMatrix(t *testing.T) {
 
 func TestMapElements(t *testing.T) {
 	mappedValues := mat4x4.MapElements()
-	if mappedValues[1].Row != 1 {
-		t.Fatalf("Expected 1, got %d.", mappedValues[1].Row)
+	if mappedValues[Position{Row: 1, Column: 1}] != 1 {
+		t.Fatal("Expected 1, got ", mappedValues[Position{Row: 1, Column: 1}], ".")
 	}
 }
 
@@ -73,7 +73,7 @@ func TestCreateSubMatrix2x2(t *testing.T) {
 	}
 }
 
-func TestSubMatrixes(t *testing.T) {
+func TestSubMatrixes3x3(t *testing.T) {
 	subMats := mat4x4.SubMatrixes()
 	if len(subMats) != 4 {
 		t.Fatalf("Expected to have 4 sub-matrixes, got %d.", len(subMats))
@@ -83,6 +83,19 @@ func TestSubMatrixes(t *testing.T) {
 	}
 	if len(subMats[0].Rows) != 3 {
 		t.Fatalf("Expected rows to be 3, got %d.", len(subMats[0].Rows))
+	}
+}
+
+func TestSubMatrixes2x2(t *testing.T) {
+	subMats := mat3x3.SubMatrixes()
+	if len(subMats) != 3 {
+		t.Fatalf("Expected to have 3 sub-matrixes, got %d.", len(subMats))
+	}
+	if len(subMats[0].Rows) != len(subMats[0].Rows[0].Columns) {
+		t.Fatal("Expected number of rows to be equal to the amount of columns, got not equal.", subMats)
+	}
+	if len(subMats[0].Rows) != 2 {
+		t.Fatalf("Expected rows to be 2, got %d.", len(subMats[0].Rows))
 	}
 }
 
@@ -99,6 +112,9 @@ func TestLaplaceDet3x3(t *testing.T) {
 
 }
 
-func TestLaplace(t *testing.T) {
-
+func TestLaplace4x4(t *testing.T) {
+	result := mat4x4.LaplaceDet()
+	if result != 63 {
+		t.Fatalf("Expected result to be 63, got %f.", result)
+	}
 }
