@@ -63,7 +63,7 @@ func (m Matrix) CreateSubMatrix(row, column int) Matrix {
 	return subMatrix
 }
 
-// SubMatrixes will generate all the sub matrixes that don't contains elements from the first row.
+// SubMatrices will generate all the sub matrices that don't contains elements from the first row.
 //
 // Each sub-matrix is just another matrix with rows and columns 1 unit shorter than the mother matrix.
 // If there is a matrix 3x3, each sub-matrix will be 2x2.
@@ -72,12 +72,12 @@ func (m Matrix) CreateSubMatrix(row, column int) Matrix {
 // Examples:
 //
 // a Matrix3x3: [1 2 3; 3 7 9; 1 2 1] => [3 7;1 2],[7 9;2 1]
-func (m Matrix) SubMatrixes() []Matrix {
-	subMatrixes := []Matrix{}
+func (m Matrix) SubMatrices() []Matrix {
+	subMatrices := []Matrix{}
 	for columnValue := 1; columnValue <= len(m.Rows); columnValue++ {
-		subMatrixes = append(subMatrixes, m.CreateSubMatrix(1, columnValue))
+		subMatrices = append(subMatrices, m.CreateSubMatrix(1, columnValue))
 	}
-	return subMatrixes
+	return subMatrices
 }
 
 // LaplaceDet will calculate the matrix-3x3 determinant by using the Laplace Theorem.
@@ -97,7 +97,7 @@ func (m Matrix) LaplaceDet3x3() float64 {
 func (m Matrix) LaplaceDet() float64 {
 	subMatrices := []Matrix{}
 	if len(m.Rows[0].Columns) > 2 {
-		for _, subM := range m.SubMatrixes() {
+		for _, subM := range m.SubMatrices() {
 			subMatrices = append(subMatrices, subM)
 		}
 	}

@@ -73,10 +73,10 @@ func TestCreateSubMatrix2x2(t *testing.T) {
 	}
 }
 
-func TestSubMatrixes3x3(t *testing.T) {
-	subMats := mat4x4.SubMatrixes()
+func TestSubMatrices3x3(t *testing.T) {
+	subMats := mat4x4.SubMatrices()
 	if len(subMats) != 4 {
-		t.Fatalf("Expected to have 4 sub-matrixes, got %d.", len(subMats))
+		t.Fatalf("Expected to have 4 sub-matrices, got %d.", len(subMats))
 	}
 	if len(subMats[0].Rows) != len(subMats[0].Rows[0].Columns) {
 		t.Fatal("Expected number of rows to be equal to the amount of columns, got not equal.", subMats)
@@ -86,10 +86,10 @@ func TestSubMatrixes3x3(t *testing.T) {
 	}
 }
 
-func TestSubMatrixes2x2(t *testing.T) {
-	subMats := mat3x3.SubMatrixes()
+func TestSubMatrices2x2(t *testing.T) {
+	subMats := mat3x3.SubMatrices()
 	if len(subMats) != 3 {
-		t.Fatalf("Expected to have 3 sub-matrixes, got %d.", len(subMats))
+		t.Fatalf("Expected to have 3 sub-matrices, got %d.", len(subMats))
 	}
 	if len(subMats[0].Rows) != len(subMats[0].Rows[0].Columns) {
 		t.Fatal("Expected number of rows to be equal to the amount of columns, got not equal.", subMats)
