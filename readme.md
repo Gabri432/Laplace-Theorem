@@ -62,7 +62,7 @@ This isn't a square matrix    <<< Message of error from the code.
 ```
 
 ## Notes
-```
+
 - The project should work properly. However you can test by using the following website:
 ```
 https://matrixcalc.org/det.html
