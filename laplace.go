@@ -108,7 +108,3 @@ func (m Matrix) LaplaceDet() float64 {
 	}
 	return result
 }
-
-// n3 => 3*n2
-// n4 => 4*n3 => 12*n2
-// n5 => 5*n4 => 20*n3 => 60*n2
