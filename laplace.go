@@ -22,7 +22,6 @@ import (
 //
 // If it is not a square matrix (where the number of rows is the same of the columns), it will print an error.
 func (m Matrix) Start() {
-	//mat := getUserInput()
 	if !(m).IsSquareMatrix() {
 		fmt.Println("This isn't a square matrix.\n Retry.")
 		return
