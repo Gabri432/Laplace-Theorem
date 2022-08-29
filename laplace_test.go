@@ -1,4 +1,4 @@
-package laplacetheorem
+package laplace
 
 import (
 	"testing"

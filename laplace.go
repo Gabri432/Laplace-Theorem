@@ -7,7 +7,7 @@
 // If you enjoyed using this program also consider putting a star in the github repository at  https://github.com/Gabri432/Laplace-Theorem.
 //
 // Thank you!! :)
-package laplacetheorem
+package laplace
 
 import (
 	"bufio"
@@ -18,14 +18,24 @@ import (
 	"strings"
 )
 
-func main() {
-	mat := getUserInput()
-	if !(mat).IsSquareMatrix() {
+// Start will calculate the determinant of the matrix and print the result.
+//
+// If it is not a square matrix (where the number of rows is the same of the columns), it will print an error.
+func (m Matrix) Start() {
+	//mat := getUserInput()
+	if !(m).IsSquareMatrix() {
 		fmt.Println("This isn't a square matrix.\n Retry.")
 		return
 	} else {
-		fmt.Println("Result: ", validateMatrixType(mat))
+		fmt.Println("Result: ", validateMatrixType(m))
 	}
+}
+
+// MatrixFromTerminal will ask the user to write the matrix from the terminal.
+//
+// Once it is done the function will return that matrix.
+func MatrixFromTerminal() Matrix {
+	return getUserInput()
 }
 
 func getUserInput() Matrix {

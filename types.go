@@ -1,4 +1,4 @@
-package laplacetheorem
+package laplace
 
 type MatRow struct {
 	Columns []float64
