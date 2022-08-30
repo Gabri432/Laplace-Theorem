@@ -2,9 +2,9 @@
 //
 // If you want more details about how it works check the following link https://en.wikipedia.org/wiki/Laplace_expansion.
 //
-// Also if you find any issue or any idea to improve the program you can use this link https://github.com/Gabri432/Laplace-Theorem/issues.
+// Also if you find any issue or any idea to improve the program you can use this link https://github.com/Gabri432/LaplaceExpansion/issues.
 //
-// If you enjoyed using this program also consider putting a star in the github repository at  https://github.com/Gabri432/Laplace-Theorem.
+// If you enjoyed using this program also consider putting a star in the github repository at  https://github.com/Gabri432/LaplaceExpansion.
 //
 // Thank you!! :)
 package laplace
