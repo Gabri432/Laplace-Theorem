@@ -7,8 +7,8 @@ Per maggiori dettagli `https://en.wikipedia.org/wiki/Laplace_expansion`.
 
 ## Struttura del Progetto
 - `Laplace Theorem` (cartella principale), dove sono presenti i seguenti file:
-  - `laplace.go`, dove ci sono i principali file della libreria,
-  - `laplace_test.go`, contenente i file per il testing,
+  - `laplace.go`, dove ci sono le principali funzioni della libreria,
+  - `laplace_test.go`, contenente le funzioni per il testing,
   - `types.go`, contenente tutti i tipi custom,
   - `readme.md` e `license`.
 
