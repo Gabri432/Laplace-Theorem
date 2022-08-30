@@ -28,7 +28,41 @@ go test [-v] [-run TestFunctionName]
 ```
 
 ### Example
+- Example 1: Creating a new Matrix from code
 ```
+package main
+
+import (
+	"fmt"
+	laplace "github.com/Gabri432/LaplaceExpansion"
+)
+
+func main() {
+
+	row1 := laplace.NewRow([]float64{1, 2, 3, 6})
+	row2 := laplace.NewRow([]float64{5, 7, 3, 0})
+	row3 := laplace.NewRow([]float64{1, 11, 1, 4})
+	row4 := laplace.NewRow([]float64{9, 2, 8, 4})
+	matrix := laplace.NewMatrix([]laplace.MatRow{row1, row2, row3, row4})
+	fmt.Println(matrix.LaplaceDet())
+
+}
+
+=== Output ===
+
+ 120
+```
+
+- Example 2: Creating a new Matrix using "MatrixFromTerminal()" function
+```
+
+func main() {
+  matrix := lapalce.MatrixFromTerminal()
+  matrix.Start()
+}
+
+=== Output ===
+
 \...\laplace-theorem> go run .
 Insert Input:  <<< It will appear a description about how to use the code.
  1) each line creates a row of the Matrix.
@@ -38,19 +72,15 @@ Example:
  3;2
  1;5
  END    <<< End of description
-        <<< User starts inserting here.
-```
-- Example of input
-```
-1;3;3;1
+1;3;3;1 <<< User starts inserting here.
 4;2;9;1
 5;3;1;7
 9;5;6;8
 END   <<< User writes 'END' to start calculating the matrix determinant.
 
-Result: -224
+Result: -224      <<< Output of the calculation.
 ```
-- Example of wrong input
+- Example 3: Inserting wrong input using "MatrixFromTerminal()" and "(Matrix).Start()" functions
 ```
 1;3;3;1
 4;2;9
