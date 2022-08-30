@@ -18,6 +18,16 @@ import (
 	"strings"
 )
 
+// NewRow creates a new matrix row.
+func NewRow(values []float64) MatRow {
+	return MatRow{Columns: values}
+}
+
+// NewMatrix creates a new matrix
+func NewMatrix(rows []MatRow) Matrix {
+	return Matrix{Rows: rows}
+}
+
 // Start will calculate the determinant of the matrix and print the result.
 //
 // If it is not a square matrix (where the number of rows is the same of the columns), it will print an error.
