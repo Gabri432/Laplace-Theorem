@@ -16,7 +16,7 @@ You can check the details on `https://en.wikipedia.org/wiki/Laplace_expansion`.
 ## How to use it
 ### Clone the project
 ```
-git clone https://github.com/Gabri432/Laplace-Theorem.git
+git clone https://github.com/Gabri432/LaplaceExpansion.git
 ```
 ### Run the tests
 ```
@@ -63,7 +63,6 @@ func main() {
 
 === Output ===
 
-\...\laplace-theorem> go run .
 Insert Input:  <<< It will appear a description about how to use the code.
  1) each line creates a row of the Matrix.
  2) each number of the line must be separated by a semicolon;      
